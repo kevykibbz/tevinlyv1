@@ -1,0 +1,13 @@
+{% extends 'manager/base.html' %}
+{% load static %}
+
+{% block intro %}
+<div class="caption-header text-center wow fadeInUp" style="margin-top:-60px !important;"> 
+  <h4 class="fw-normal">Dev<b class="fg-theme">Me</b> |  {{title}}</h4>
+  <p>{{message}}</p>
+  {% if valid %}
+  <a href="{% url 'login' %}" class="btn btn-theme mt-3 wow fadeInUp ml-1">Login</a>
+  {% endif %}
+  <div class="floating-button"><span class="ti-mouse"></span></div>
+</div>
+{% endblock %}

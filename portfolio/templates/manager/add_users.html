@@ -1,0 +1,126 @@
+{% extends 'manager/subbase.html' %}
+{% load static %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+            <ul class="breadcrumb" style="background-color:transparent!important;">
+                <li class="breadcrumb-item fg-theme"><a class="fg-theme" href="{% url 'dashboard' %}"><i class="zmdi zmdi-home"></i> {{obj.site_name}}</a></li>
+                <li class="breadcrumb-item">
+                    <a class="fg-theme" href="{% url 'users' %}">View users</a>
+                </li>              
+                <li class="breadcrumb-item active fg-theme" aria-current="page">{% if edit %} Edit {{user.get_full_name}} {% else %} Add User{% endif %}</li>
+            </ul>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">                
+            <button class="btn btn-theme btn-icon float-right right_icon_toggle_btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+
+            <a  href="{% url 'add users' %}" class="mr-2 btn btn-success btn-icon float-right" type="button"><i class="zmdi zmdi-plus"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 mx-auto">
+            <div class="card card-statistics">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">User Details</h4>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <form class="ActiveForm" method="post"  novalidate>
+                        {% csrf_token %}
+                        <div class="row"> 
+                            <div class="col-md-6 col-12"> 
+                                <div class="form-group">
+                                    <label for="id_first_name">First Name</label>
+                                    {{uform.first_name}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div> 
+                            <div class="col-md-6 col-12"> 
+                                <div class="form-group">
+                                    <label for="id_last_name">Last Name</label>
+                                    {{uform.last_name}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12"> 
+                                <div class="form-group">               
+                                    <label for="id_email">Email</label>
+                                    {{uform.email}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12"> 
+                                <div class="form-group">               
+                                    <label for="id_username">Username</label>
+                                    {{uform.username}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            <div class="{% if edit %}col-12 {% else %} col-md-6 col-12 {% endif %}"> 
+                                <label for="id_phone">Phone</label>
+                                <div class="form-group">               
+                                    {{eform.phone}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            {% if not edit %}
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">               
+                                    <label for="id_password1">Password</label>
+                                    {{uform.password1}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">               
+                                    <label for="id_password2">Confirm Password</label>
+                                    {{uform.password2}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if edit %}
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    {{eform.gender}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label>Birthday</label>
+                                <div class="form-group">
+                                    {{eform.birthday}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Nickname</label>
+                                    {{eform.nickname}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    {{uform.is_active}}
+                                    <label>Enable/Disable user</label>
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-theme btn-rounded">
+                                <span></span><span>submit</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+ </div>
+{% endblock %}

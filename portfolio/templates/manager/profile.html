@@ -1,0 +1,373 @@
+{% extends 'manager/subbase.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div class="block-header">
+    <div class="row">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+            <button class="btn  btn-theme btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">                
+            <button class="btn  btn-theme btn-icon float-right right_icon_toggle_btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row clearfix">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3" >
+            <div class="container">
+                <ol class="breadcrumb" style="background-color:transparent!important;">
+                    <li class="breadcrumb-item"><a class="fg-theme" href="{% url 'dashboard' %}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My profile</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-12 wow fadeInUp">
+            <div class="imagecard card">
+                <img class="card-img-top"  data-src="{% static 'manager/assets/img/photo-2.jpg' %}" alt="Card image cap">
+                <div class="card-body little-profile text-center">
+                    <form action="{% url 'profile pic' %}" class="position-relative ProfileImageForm" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{profileform.profile_pic}}
+                        <div class="pro-img">
+                            <button type="button" class="profilecamera">
+                                <i class="getprofilepic fg-theme fa fa-camera"></i>
+                            </button>
+                            <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{{request.user.extendedauthuser.profile_pic.url}}" alt="{{request.user.get_full_name}}">
+                        </div>
+                    </form>
+                    <h3 class="m-b-0">{{request.user.get_full_name}}</h3>
+                    <p class="text-center fg-theme">@{{request.user.extendedauthuser.nickname|default:'No nickname '}}</p>
+                    <ul class="mt-1 social-links list-inline">
+                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="fg-theme tooltips" target="_blank" href="{{request.user.extendedauthuser.facebook|default:'Not Set'}}" data-original-title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="fg-theme tooltips" target="_blank" href="{{request.user.extendedauthuser.twitter|default:'Not Set'}}" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="fg-theme tooltips" target="_blank" href="{{request.user.extendedauthuser.instagram|default:'Not Set'}}" data-original-title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip" class="fg-theme tooltips" target="_blank" href="{{request.user.extendedauthuser.github|default:'Not Set'}}" data-original-title="Github"><i class="fab fa-github"></i></a></li>
+                    </ul>
+                    <p>{{request.user.extendedauthuser.bio|default:'Bio Not Set'}}</p> <a href="javascript:void(0)" class="m-t-10 waves-effect waves-dark btn-theme btn-md btn-rounded" data-abc="true">Follow</a>
+                    <div class="row text-center m-t-20">
+                        <div class="col-lg-4 col-md-4 m-t-20">
+                            <h3 class="m-b-0 font-light">{{request.user.extendedauthuser.articles|intcomma}}</h3><small>Articles</small>
+                        </div>
+                        <div class="col-lg-4 col-md-4 m-t-20">
+                            <h3 class="m-b-0 font-light">{{request.user.extendedauthuser.followers|intcomma}}</h3><small>Followers</small>
+                        </div>
+                        <div class="col-lg-4 col-md-4 m-t-20">
+                            <h3 class="m-b-0 font-light">{{request.user.extendedauthuser.following|intcomma}}</h3><small>Following</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-12 offset-lg-1 wow fadeInRight">
+            <div class="profile-head">
+                <div class="row">
+                    <div class="col-md-8 col-12 mt-md-0 mt-2 text-md-right text-center">
+                        <p class="proile-rating"><div class="badge badge-subhead pr-2 btn-rounded"><i class="fa fa-arrow-up"></i> Upvotes : <span>{{request.user.extendedauthuser.upvotes|intcomma}}</span></div>   <div class="badge badge-subhead pr-2 btn-rounded"><i class="fa fa-arrow-down"></i> Downvotes : <span>{{request.user.extendedauthuser.downvotes|intcomma}}</span></div></p>
+                    </div>
+                    <div class="col-md-4 col-12 text-md-left text-center mt-md-0 mt-2" style="margin-bottom:-20px !important">
+                        <div class="dropdown">
+                            <button class="waves-effect waves-dark btn btn-theme-outline fg-theme btn-sm btn-rounded dropdown-toggle" type="button" id="dropdownMenubutton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Balance Ksh: 2,000</button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenubutton">
+                             <a href="#" class="dropdown-item"><i class="fa fa-money"></i> Topup</a>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist" style="overflow-x: auto; overflow-y: hidden; flex-wrap:nowrap;">
+                <li class="nav-item">
+                    <a class="fg-theme nav-link active" style="white-space: nowrap;" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="true">Personal info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="fg-theme nav-link" style="white-space: nowrap;" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Edit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="fg-theme nav-link" style="white-space: nowrap;" id="security-tab" data-toggle="tab" href="#security" role="tab" aria-controls="security" aria-selected="false">Security</a>
+                </li>
+                <li class="nav-item">
+                    <a class="fg-theme nav-link" style="white-space: nowrap;" id="social-tab" data-toggle="tab" href="#social" role="tab" aria-controls="social" aria-selected="false">social</a>
+                </li>
+                <li class="nav-item">
+                    <a class="fg-theme nav-link" style="white-space: nowrap;" id="question-tab" data-toggle="tab" href="#question" role="tab" aria-controls="question" aria-selected="false">Asked Questions</a>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                            <div class="row">
+                                <div class="col-md-6 mt-2">
+                                    <label class="font-weight-bold">User Id</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{request.user.username}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label  class="font-weight-bold">Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{request.user.first_name}} {{request.user.last_name}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label  class="font-weight-bold">Email</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{request.user.email}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label  class="font-weight-bold">Phone</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{request.user.extendedauthuser.phone}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label  class="font-weight-bold">Birthday</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{request.user.extendedauthuser.birthday|default:'Not Set'}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label  class="font-weight-bold">Gender</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{request.user.extendedauthuser.gender|default:'Not Set'}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label  class="font-weight-bold">Bio</label>
+                                </div>
+                                <div class="col-md-6 text-truncate">
+                                    <p>{{request.user.extendedauthuser.bio|default:'Not Set'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <form class="mt-2 mb-2 ActiveForm" style="padding:0 15px;" method="post" action="{% url 'profile' username=request.user.username %}" novalidate>
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>First name</label>
+                                            {{uform.first_name}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Last name</label>
+                                            {{uform.last_name}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            {{uform.username}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            {{uform.email}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label>Phone</label>
+                                        <div class="form-group">
+                                            {{eform.phone}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Gender</label>
+                                            {{eform.gender}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Birthday</label>
+                                        <div class="form-group">
+                                            {{eform.birthday}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Nickname</label>
+                                            {{eform.nickname}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Bio </label>
+                                            {{eform.bio}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{uform.is_active}}
+                                            <label>Enable/Disable user</label>
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-theme btn-rounded">submit</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+                           <fieldset class="position-relative">
+                                <div class="load-overlay" style="display:none">
+                                    <span class="overlay-close btn-remove" title="close overlay">
+                                        <i class="fa fa-close"></i>
+                                    </span>
+                                    <div class="overlay">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="loader-container">
+                                                <div class="loader">
+                                                    <svg class="circular" viewBox="25 25 50 50">
+                                                    <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                                                    </svg>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <form class="mt-2 mb-2 ActiveForm" style="padding:0 15px;" method="post" action="{% url 'password change' %}" novalidate>
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Original password</label>
+                                            {{passform.oldpassword}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label>New password</label>
+                                            {{passform.password1}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label>Confirm new password</label>
+                                            {{passform.password2}}
+                                            <div class="feedback"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <button class="btn btn-theme btn-rounded">submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                           </fieldset>
+                        </div>
+                        <div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
+                            <fieldset>
+                                <form class="mb-2 ActiveForm" style="padding:0 15px;" method="post" action="{% url 'edit social link' %}" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Facebook</label>
+                                                {{socialform.facebook}}
+                                                <div class="feedback"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label>Twitter</label>
+                                                {{socialform.twitter}}
+                                                <div class="feedback"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12">
+                                            <div class="form-group">
+                                                <label>Instagram</label>
+                                                {{socialform.instagram}}
+                                                <div class="feedback"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Github</label>
+                                                {{socialform.github}}
+                                                <div class="feedback"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 text-center">
+                                            <button class="btn btn-theme btn-rounded">submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                               </fieldset>
+                        </div>
+                        <div class="tab-pane fade" id="question" role="tabpanel" aria-labelledby="question-tab">
+                            <div class="projects">
+                                <div class="table-responsive" style="height:500px;overflow-y:scroll;">
+                                    <table class="table table-hover table-striped">
+                                        <tr>
+                                            <td>#</td>
+                                            <td>Question</td>
+                                            <td>uploaded on</td>
+                                            <td>action</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>How to create registration system</td>
+                                            <td>2 days ago</td>
+                                            <td><i class="fg-theme fa fa-trash"></i> | <a class="fg-theme" href="#">view</a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-theme btn-rounded">Ask  question</button>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

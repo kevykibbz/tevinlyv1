@@ -1,0 +1,37 @@
+{% extends 'manager/base.html' %}
+{% load static %}
+
+{% block intro %}
+<div class="caption-header text-center wow fadeInUp mt-4">
+  <form class="vg-contact-form  ActiveForm" method="post" style="padding:0 15px;" novalidate>
+    <h4 class="fw-normal">Dev<b class="fg-theme">Me</b> | Login </h4>
+    <div class="message text-center wow fadeInUp"></div>
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="wrapper col-12 mt-3 wow fadeInUp">
+        {{form.username}}
+        <span class="feedback mt-2 float-left"></span>
+      </div>
+      <div class="wrapper col-12 mt-3 wow fadeInUp">
+        {{form.password1}}
+        <span class="feedback mt-2 float-left"></span>
+      </div>
+        <div class="mx-auto">
+            <button  class="btn btn-theme mt-3 wow fadeInUp ml-1 btn-rounded" id="login_btn">
+                <span class="fa fa-spinner fa-spin login_spinner" style="display:none;"></span>
+                <span class="login_text">Login</span>
+              </button>
+        </div>
+    </div>
+    <p>dont have an account? <a href="{% url 'register' %}">Register here</a></p>
+    <p>forgotten password ? <a href="{% url 'password_reset' %}">Reset here</a></p>
+    <span class="Or"> or login with </span>
+    <div class="mx-auto">
+      <a title="Google"  href="/accounts/google/login/?process=login"class="btn btn-fab btn-theme no-shadow socialaccount_provider google" style="background-color:#db4a39 ;"><i class="fab fa-google"></i></a>
+      <a title="Twitter" href="/accounts/twitter/login/?process=login"class="btn btn-fab btn-theme no-shadow socialaccount_provider twitter" style="background-color:#00acee"><i class="fab fa-twitter"></i></a>
+      <a title="GitHub" href="/accounts/github/login/?process=login"class="btn btn-fab btn-theme no-shadow socialaccount_provider github" style="background-color:#171515;"><i class="fab fa-github"></i></a>
+  </div>
+  </form>
+  <div class="floating-button"><span class="ti-mouse"></span></div>
+</div>
+{% endblock %}

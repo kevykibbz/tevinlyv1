@@ -1,0 +1,64 @@
+{% extends 'manager/subbase.html' %}
+{% load static %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+            <ul class="breadcrumb" style="background-color:transparent!important;">
+                <li class="breadcrumb-item fg-theme"><a class="fg-theme" href="{% url 'dashboard' %}"><i class="zmdi zmdi-home"></i> {{obj.site_name}}</a></li>
+                <li class="breadcrumb-item">
+                    <a class="fg-theme" href="{% url 'designs' %}">My skills</a>
+                </li>              
+                <li class="breadcrumb-item active fg-theme" aria-current="page">{% if edit %} Edit Skill {% else %} Add Skill {% endif %}</li>
+            </ul>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">                
+            <button class="btn btn-theme btn-icon float-right right_icon_toggle_btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 mx-auto">
+            <div class="card card-statistics">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Skill Details</h4>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <form class="ActiveForm" method="post"  novalidate>
+                        {% csrf_token %}
+                        <div class="row"> 
+                            <div class="col-md-6 col-12"> 
+                                <div class="form-group">
+                                    <label for="id_first_name">Skill Name</label>
+                                    {{form.name}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div> 
+                            <div class="col-md-6 col-12"> 
+                                <div class="form-group">
+                                    <label for="id_last_name">Skill category</label>
+                                    {{form.category}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div> 
+                            <div class="col-12"> 
+                                <div class="form-group">
+                                    <label for="id_last_name">Skill Progress</label>
+                                    {{form.progress}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-theme btn-rounded">
+                                <span></span><span>submit</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+ </div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'manager/subbase.html' %}
+{% load static %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+            <ul class="breadcrumb" style="background-color:transparent!important;">
+                <li class="breadcrumb-item fg-theme"><a class="fg-theme" href="{% url 'dashboard' %}"><i class="zmdi zmdi-home"></i> {{obj.site_name}}</a></li>
+                <li class="breadcrumb-item">
+                    <a class="fg-theme" href="{% url 'projects' %}">View Projects</a>
+                </li>              
+                <li class="breadcrumb-item active fg-theme" aria-current="page">{% if edit %} Edit Project {% else %} Add Project{% endif %}</li>
+            </ul>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">                
+            <button class="btn btn-theme btn-icon float-right right_icon_toggle_btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+
+            <a  href="{% url 'add users' %}" class="mr-2 btn btn-success btn-icon float-right" type="button"><i class="zmdi zmdi-plus"></i></a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 mx-auto">
+            <div class="card card-statistics">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Project Details</h4>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <form class="ActiveForm" method="post"  novalidate>
+                        {% csrf_token %}
+                        <div class="row"> 
+                            <div class="col-md-6 col-12"> 
+                                <div class="form-group">
+                                    <label for="id_first_name">Project title</label>
+                                    {{form.title}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>  
+                            <div class="col-md-6 col-12"> 
+                                <div class="form-group">
+                                    <label for="id_first_name">Project Category</label>
+                                    {{form.category}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div> 
+                            <div class="col-md-6 col-12"> 
+                                <div class="form-group">
+                                    <label for="id_first_name">Project Link</label>
+                                    {{form.link}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div> 
+                            <div class="col-md-6 col-12"> 
+                                <div class="form-group">
+                                    <label for="id_first_name">Project Caption</label>
+                                    {{form.caption}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-12"> 
+                                <div class="form-group">               
+		                            <label for="id_theme_color">Project thumbnail</label>
+		                            <div class="custom-file" style="cursor:pointer">
+		                                {{form.thumbnail}}
+		                                <label for="customFileInput" class="custom-file-label">Browse files</label>
+		                            </div>
+		                            <div class="feedback"></div>
+                        		</div>
+                            </div>  
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-theme btn-rounded">
+                                <span></span><span>submit</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+ </div>
+{% endblock %}

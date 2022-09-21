@@ -1,0 +1,102 @@
+{% extends 'manager/subbase.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div class="block-header">
+    <div class="row">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+            <h2>View users</h2>
+            <ul class="breadcrumb"  style="background-color:transparent!important;">
+                <li class="breadcrumb-item fg-theme"><a class="fg-theme" href="{% url 'dashboard' %}"><i class="zmdi zmdi-home"></i> {{obj.site_name}}</a></li>
+                <li class="breadcrumb-item active">View users </li>
+            </ul>
+            <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">                
+            <button class="btn btn-theme btn-icon float-right right_icon_toggle_btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+            <a  href="{% url 'add users' %}" class="mr-2 btn btn-success btn-icon float-right" type="button"><i class="zmdi zmdi-plus"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row clearfix">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card project_list">
+                <div class="table-responsive table-results">
+                    <p>All users {{count|intcomma}}</p>
+                    <table class="table table-bordered table-striped table-hover dataTable js-exportable  c_table theme-color ">
+                        <thead>
+                            <tr>                                       
+                                <th>#</th>
+                                <th style="width:50px;">Profile</th>
+                                <th></th>
+                                <th>Name</th>                                        
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th  width="150px">Status</th>
+                                <th>Created Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr id="id_{{user.id}}">
+                                <td>{{forloop.counter}}.</td>
+                                <td>
+                                    {% if user.extendedauthuser.profile_pic %}
+                                    <img class="img-fluid rounded avatar" style="width:45px;height:45px;object-fit:cover;border-radius:50%;overflow:hidden;" src="{% static 'manager/assets/images/loader.svg' %}" data-src="{{user.extendedauthuser.profile_pic.url}}" alt="">
+                                    {% else %}
+                                    <img class="img-fluid rounded avatar" src="{% static 'manager/assets/images/loader.svg' %}" data-src="{% static 'manager/profiles/placeholder.jpg' %}" alt="">
+                                    {% endif %}
+                                </td>
+                                <td></td>
+                                <td>{{user.first_name}} {{user.last_name}}</td>
+                                <td>{{user.email}}</td>
+                                <td>{{user.extendedauthuser.phone}}</td>
+                                <td>
+                                    {% if user.extendedauthuser.role == 'Admin' %}
+                                    <span class="badge badge-subhead btn-rounded">{{user.extendedauthuser.role}}</span>
+                                    {% elif user.extendedauthuser.role == 'Secondary' %}
+                                    <span class="badge badge-subhead btn-rounded">{{user.extendedauthuser.role}}</span>
+                                    {% elif user.extendedauthuser.role == 'Tertiary' %}
+                                    <span class="badge badge-subhead btn-rounded">{{user.extendedauthuser.role}}</span>
+                                    {% else %}
+                                    <span class="badge badge-subhead btn-rounded">{{user.extendedauthuser.role}}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{user.date_joined}}</td>
+                                <td>
+                                    {% if user.is_superuser %}
+                                    <a  href="{% url 'profile' username=user.username %}" class="btn btn-success btn-icon " type="button"><i class="zmdi zmdi-edit"></i></a>
+                                    <a  href="javascript:void(0)" class=" btn btn-danger btn-icon " type="button"><i class="zmdi zmdi-delete"></i></a>
+                                    {% else %}
+                                    <a  href="{% url 'edit user' id=user.id %}" class="btn btn-success btn-icon " type="button"><i class="zmdi zmdi-edit"></i></a>
+                                    <a  data-host="{% url 'users' %}" href="{% url 'delete user' id=user.id %}" class="del-data btn btn-danger btn-icon " type="button"><i class="zmdi zmdi-delete"></i></a>
+                                    {% endif %}
+                                </td>
+                             </tr>
+                             {% empty %}
+                             <tr>
+                             	<td class="text-center" colspan="9">
+                             		No users found
+                             	</td>
+                             </tr>
+                             {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="pagination pagination-primary mt-4">
+                    {% if users.has_previous %}
+                    <li class="page-item active"><a class="page-link" href="{% url 'view users' %}?page={{users.previous_page_number}}"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                    {% endif %}
+                    {% if users.has_next %}
+                    <li class="page-item active"><a class="page-link" href="{% url 'view users' %}?page={{users.next_page_number}}"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

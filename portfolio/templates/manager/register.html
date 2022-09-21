@@ -1,0 +1,46 @@
+{% extends 'manager/base.html' %}
+{% load static %}
+
+{% block intro %}
+<div class="caption-header text-center wow fadeInUp " >
+  <form class="vg-contact-form ActiveForm" method="post" novalidate style="margin-top:40px;padding:0 15px;"> 
+     <h4 class="fw-normal">Dev<b class="fg-theme">Me</b> | Register</h4>
+    <div class="messager text-center wow fadeInUp"></div>
+    {% csrf_token %}
+    <div class="form-row mt-3 ">
+        <div class="wrapper col-12 mt-3 wow fadeInUp">
+            {{form.first_name}}
+            <span class="feedback float-left"></span>
+        </div>
+        <div class="wrapper col-12 mt-3 wow fadeInUp">
+            {{form.last_name}}
+            <span class="feedback float-left"></span>
+        </div>
+        <div class="wrapper col-12 mt-3 wow fadeInUp">
+            {{form.email}}
+            <span class="feedback float-left"></span>
+          </div> 
+        <div class="wrapper col-12 mt-3 wow fadeInUp">
+            {{form2.phone}}
+            <span class="feedback float-left"></span>
+        </div>
+        <div class="wrapper col-12 mt-3 wow fadeInUp">
+        {{form.username}}
+        <span class="feedback float-left"></span>
+      </div>
+      <div class="wrapper col-12 mt-3 wow fadeInUp">
+        {{form.password1}}
+        <span class="feedback float-left"></span>
+      </div>
+      <div class="wrapper col-12 mt-3 wow fadeInUp">
+        {{form.password2}}
+        <span class="feedback float-left"></span>
+      </div>
+        <div class="mx-auto">
+            <button  class="btn btn-theme mt-3 wow fadeInUp ml-1 btn-rounded">Register</button>
+        </div>
+    </div>
+    <p>already have an account? <a href="{% url 'login' %}">Login here</a></p>
+  </form>
+</div>
+{% endblock %}

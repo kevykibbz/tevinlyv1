@@ -1,0 +1,79 @@
+{% extends 'manager/subbase.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div class="block-header">
+    <div class="row">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+            <h2>View Skills</h2>
+            <ul class="breadcrumb"  style="background-color:transparent!important;">
+                <li class="breadcrumb-item fg-theme"><a class="fg-theme" href="{% url 'dashboard' %}"><i class="zmdi zmdi-home"></i> {{obj.site_name}}</a></li>
+                <li class="breadcrumb-item active">View Skills </li>
+            </ul>
+            <button class="btn btn-primary btn-icon mobile_menu" type="button"><i class="zmdi zmdi-sort-amount-desc"></i></button>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">                
+            <button class="btn btn-theme btn-icon float-right right_icon_toggle_btn" type="button"><i class="zmdi zmdi-arrow-right"></i></button>
+            <a  href="{% url 'add skill' %}" class="mr-2 btn btn-success btn-icon float-right" type="button"><i class="zmdi zmdi-plus"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row clearfix">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card project_list">
+                <div class="table-responsive table-results">
+                    <p>All users {{count|intcomma}}</p>
+                    <table class="table table-bordered table-striped table-hover dataTable js-exportable  c_table theme-color ">
+                        <thead>
+                            <tr>                                       
+                                <th>#</th>
+                                <th>Skill Name</th>                                        
+                                <th>category</th>
+                                <th>Progress</th>
+                                <th>Created Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for skill in designs %}
+                            <tr id="id_{{user.id}}">
+                                <td>{{forloop.counter}}.</td>
+                                <td>{{skill.name}}</td>
+                                <td>{{skill.category}}</td>
+                                <td class="hidden-md-down">
+                                    <div class="progress">
+                                        <div class="progress-bar l-blue" role="progressbar" aria-valuenow="{{skill.progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{skill.progress}}%;"></div>
+                                    </div>
+                                </td>
+                                <td>{{skill.created_on}}</td>
+                                <td>
+                                    <a  href="{% url 'edit skill' id=skill.id %}" class="btn btn-success btn-icon " type="button"><i class="zmdi zmdi-edit"></i></a>
+                                    <a  data-host="{% url 'designs' %}" href="{% url 'delete skill' id=skill.id %}" class="del-data btn btn-danger btn-icon " type="button"><i class="zmdi zmdi-delete"></i></a>
+                                </td>
+                             </tr>
+                             {% empty %}
+                             <tr>
+                             	<td class="text-center" colspan="9">
+                             		No Skills found
+                             	</td>
+                             </tr>
+                             {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <ul class="pagination pagination-primary mt-4">
+                    {% if designs.has_previous %}
+                    <li class="page-item active"><a class="page-link" href="{% url 'designs' %}?page={{designs.previous_page_number}}"><i class="zmdi zmdi-chevron-left"></i></a></li>
+                    {% endif %}
+                    {% if designs.has_next %}
+                    <li class="page-item active"><a class="page-link" href="{% url 'designs' %}?page={{designs.next_page_number}}"><i class="zmdi zmdi-chevron-right"></i></a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

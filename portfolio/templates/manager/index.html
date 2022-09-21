@@ -1,0 +1,401 @@
+{% extends 'manager/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block intro %}
+<!-- Caption header -->
+<div class="caption-header text-center wow zoomInDown">
+  <h5 class="fw-normal">Welcome</h5>
+  <h1 class="fw-light mb-4">I'm <b class="fg-theme">Kevin</b> Kibebe</h1>
+  <div class="badge">Full stack web developer</div>
+  <div class="mt-3">
+    <a href="{{obj.whatsapp}}" class="btn btn-theme btn-rounded">Hire Us</a>
+    <a href="#contact" class="btn btn-theme-outline btn-rounded">Contact Us</a>
+</div>
+</div> <!-- End Caption header -->
+<div class="floating-button"><span class="ti-mouse"></span></div>
+{% endblock %}
+
+
+
+{% block body %}
+<!-- Setting button -->
+  <div class="vg-page page-about" id="about">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-4 py-3">
+          <div class="img-place wow fadeInUp">
+            <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{{user.extendedauthuser.profile_pic.url}}" alt="profile">
+          </div>
+        </div>
+        <div class="col-lg-6 offset-lg-1 wow fadeInRight">
+          <h1 class="fw-light">{{user.get_full_name}}</h1>
+          <h5 class="fg-theme mb-3">Full stack web developer</h5>
+          <p class="text-muted">{{user.extendedauthuser.bio}}</p>
+          <ul class="theme-list">
+            <li><b>From:</b> {{obj.address}} ,{{obj.location}}</li>
+            <li><b>Lives In:</b>  Eldoret ,Kenya</li>
+            <li><b>Age:</b> {{user.extendedauthuser.birthday|timesince|default:'23'}}</li>
+            <li><b>Gender:</b> {{user.extendedauthuser.gender|default:'Male'}}</li>
+            <li><b>Experinece:</b> {{obj.experience|default:'3'}} Years</li>
+          </ul>
+          <div class="text md-left text-center">
+            <button class="btn btn-theme-outline btn-rounded">Download CV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container py-5">
+      <h1 class="text-center fw-normal wow fadeIn">My Skills</h1>
+      <div class="row py-3">
+        <div class="col-md-6">
+          <div class="px-lg-3">
+            <h4 class="wow fadeInUp text-center">Coding skills</h4>
+              {% for skill in coding_skills %}
+              <div class="progress-wrapper wow fadeInUp">
+                <span class="caption">{{skill.name}}</span>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: {{skill.progress}}%;" aria-valuenow="{{skill.progress}}" aria-valuemin="0" aria-valuemax="100">{{skill.progress}}%</div>
+                </div>
+              </div>
+              {% empty %}
+              <p class="text-center"><i class="fa fa-exclamation-circle fg-theme"></i> No skills found under this category</p>
+              {% endfor %}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="px-lg-3">
+            <h4 class="wow fadeInUp text-center">Design Skills</h4>
+            {% for skill in design_skills %}
+            <div class="progress-wrapper wow fadeInUp">
+              <span class="caption">{{skill.name}}</span>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: {{skill.progress}}%;" aria-valuenow="{{skill.progress}}" aria-valuemin="0" aria-valuemax="100">{{skill.progress}}%</div>
+              </div>
+            </div>
+            {% empty %}
+              <p class="text-center"><i class="fa fa-exclamation-circle fg-theme"></i> No skills found under this category</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vg-page page-service">
+    <div class="container">
+      <div class="text-center wow fadeInUp">
+        <div class="badge badge-subhead">Service</div>
+      </div>
+      <h1 class="fw-normal text-center wow fadeInUp">What can i do?</h1>
+      <div class="row mt-5">
+        <div class="col-md-6 col-lg-4 col-xl-3">
+          <div class="card card-service wow fadeInUp">
+            <div class="icon">
+              <span class="ti-paint-bucket"></span>
+            </div>
+            <div class="caption">
+              <h4 class="fg-theme">Web Design</h4>
+              <p>Creation of responsive web pages both static nd dynamic ones.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3">
+          <div class="card card-service wow fadeInUp">
+            <div class="icon">
+              <span class="ti-search"></span>
+            </div>
+            <div class="caption">
+              <h4 class="fg-theme">SEO</h4>
+              <p>Our last created web pages are higly optimized in search engines and highly ranked and rated by clients.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3">
+          <div class="card card-service wow fadeInUp">
+            <div class="icon">
+              <span class="ti-vector"></span>
+            </div>
+            <div class="caption">
+              <h4 class="fg-theme">UI/UX Design</h4>
+              <p>Nice good looking and elegant web pages that are responsive in multiple platforms with a good and highly rated user experience.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3">
+          <div class="card card-service wow fadeInUp">
+            <div class="icon">
+              <span class="ti-desktop"></span>
+            </div>
+            <div class="caption">
+              <h4 class="fg-theme">Web Development</h4>
+              <p>We build web pages of all kind of categories  maily CMS web based websites eg E-commerse,school managment system etc</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vg-page page-funfact" style="background-image: url('{% static 'manager/assets/img/bg_banner.jpg' %}');">
+    <div class="container">
+      <div class="row section-counter">
+        <div class="col-md-6 col-lg-3 py-4 wow fadeIn">
+          <h1 class="number" data-number="{{obj.clients|intcomma}}">{{obj.clients|intcomma}}</h1>
+          <span>Clients</span>
+        </div>
+        <div class="col-md-6 col-lg-3 py-4 wow fadeIn">
+          <h1 class="number" data-number="{{obj.completed_projects|intcomma}}">{{obj.completed_projects|intcomma}}</h1>
+          <span>Project Completed</span>
+        </div>
+        <div class="col-md-6 col-lg-3 py-4 wow fadeIn">
+          <h1 class="number" data-number="{{obj.ongoing_projects|intcomma}}">{{obj.ongoing_projects|intcomma}}</h1>
+          <span>Project Ongoing</span>
+        </div>
+        <div class="col-md-6 col-lg-3 py-4 wow fadeIn">
+          <h1 class="number" data-number="{{obj.client_satisfactory|intcomma}}">{{obj.client_satisfactory|intcomma}}</h1>
+          <span>Client Satisfaction</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio page -->
+  <div class="vg-page page-portfolio" id="portfolio">
+    <div class="container">
+      <div class="text-center wow fadeInUp">
+        <div class="badge badge-subhead">Portfolio</div>
+      </div>
+      <h1 class="text-center fw-normal wow fadeInUp">See my work ({{total_projects|intcomma}})</h1>
+      <div class="filterable-button py-3 wow fadeInUp" data-toggle="selected">
+        <button class="btn btn-theme selected" data-filter="*">All</button>
+        <!-- <button class="btn btn-theme-outline" data-filter=".apps">Apps</button> -->
+        <button class="btn btn-theme" data-filter=".template">Template</button>
+        <!-- <button class="btn btn-theme-outline" data-filter=".ios">IOS</button> -->
+        <button class="btn btn-theme" data-filter=".ui-ux">UI/UX</button>
+        <button class="btn btn-theme" data-filter=".graphic">Graphic</button>
+        <!-- <button class="btn btn-theme-outline" data-filter=".wireframes">Wireframes</button> -->
+      </div>
+
+      <div class="gridder my-3">
+        {% for project in projects %}
+        <div class="grid-item {{project.category}} wow zoomIn">
+          <div class="img-place" data-src="{{project.thumbnail.url}}" data-fancybox data-caption="{{project.caption}}">
+            <img src="{{project.thumbnail.url}}" alt="{{project.title}}">
+            <div class="img-caption">
+              <h5 class="fg-theme"><a targe="_blank" href="{{project.link}}" class="fg-theme">{{project.title}}</a></h5>
+              <p>{{project.caption}}</p>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-center mb-2 mt-2 "><i class="f fa-exclamation-circle fg-theme"></i> No Project(s) found</p>
+        {% endfor %}
+      </div> <!-- End gridder -->
+      <div class="text-center wow fadeInUp" style="margin-top:50px !important">
+        <a href="javascript:void(0)" class=" btn btn-theme btn-rounded">Load More</a>
+      </div>
+    </div>
+  </div> <!-- End Portfolio page -->
+
+  <!-- Testimonial -->
+  <div class="vg-page page-testimonial">
+    <div class="container">
+      <h1 class="text-center fw-normal wow fadeInUp">What Clients are Saying</h1>
+      <div class="row justify-content-center mt-5 wow fadeInUp">
+        <div class="col-md-9">
+          <div class="owl-carousel testi-carousel">
+            {% for review in reviews %}
+            <div class="item">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="img-place">
+                    <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{{review.profile_pic}}" alt="{{review.name}}">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="caption">
+                    <div class="testi-content">{{review.message}}</div>
+                    <div class="testi-info">
+                      <div class="thumb-profile">
+                        <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{{review.profile_pic}}" alt="{{review.name}}">
+                      </div>
+                      <div class="tagline">
+                        <h5 class="mb-0">{{review.name}}</h5>
+                        <span class="text-muted">{{review.created_on}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <p class="text-center">No reviews posted yet</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- End testimonial -->
+
+  <!-- Client -->
+  <div class="vg-page page-client">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-4 col-xl-3 item">
+          <div class="img-place wow fadeInUp">
+            <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/logo/company_1.svg' %}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 item">
+          <div class="img-place wow fadeInUp">
+            <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/logo/company_2.svg' %}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 item">
+          <div class="img-place wow fadeInUp">
+            <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/logo/company_3.svg' %}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 item">
+          <div class="img-place wow fadeInUp">
+            <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/logo/company_4.svg' %}" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-4 col-xl-3 item">
+          <div class="img-place wow fadeInUp">
+            <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/logo/company_5.svg' %}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 item">
+          <div class="img-place wow fadeInUp">
+            <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/logo/company_6.svg' %}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 item">
+          <div class="img-place wow fadeInUp">
+            <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/logo/company_7.svg' %}" alt="">
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 item">
+          <div class="img-place wow fadeInUp">
+            <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/logo/company_8.svg' %}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- End client -->
+
+  <!-- Blog -->
+  <div class="vg-page page-blog" id="blog">
+    <div class="container">
+      <div class="text-center">
+        <div class="badge badge-subhead wow fadeInUp">Blog</div>
+      </div>
+      <h1 class="text-center fw-normal wow fadeInUp">Latest Post</h1>
+      <div class="row post-grid">
+        <div class="col-md-6 col-lg-4 wow fadeInUp">
+          <div class="card">
+            <div class="img-place">
+              <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/work/work-9.jpg' %}" alt="">
+            </div>
+            <div class="caption">
+              <a href="javascript:void(0)" class="fg-theme post-category">Technology</a>
+              <a href="#" class="fg-theme post-title">Invision design forward fund</a>
+              <span class="post-date"><span class="sr-only">Published on</span> May 22, 2018</span>
+              <span class="float-right">
+                <button class="btn btn-theme-outline btn-sm btn-rounded" style="padding:3px;">4 likes</button>
+                <button class="btn btn-theme-outline btn-sm btn-rounded" style="padding:3px;">45 comments</button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp">
+          <div class="card">
+            <div class="img-place">
+              <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/work/work-6.jpg'%}" alt="">
+            </div>
+            <div class="caption">
+              <a href="javascript:void(0)" class="post-category">Business</a>
+              <a href="#" class="fg-theme post-title">Announcing a plan for small teams</a>
+              <span class="post-date"><span class="sr-only">Published on</span> May 22, 2018</span>
+              <span class="float-right">
+                <button class="btn btn-theme-outline btn-sm btn-rounded" style="padding:3px;">4 likes</button>
+                <button class="btn btn-theme-outline btn-sm btn-rounded" style="padding:3px;">45 comments</button>
+              </span>            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 wow fadeInUp">
+          <div class="card">
+            <div class="img-place">
+              <img src="{% static 'manager/assets/img/loader.gif' %}" data-src="{% static 'manager/assets/img/work/work-1.jpg' %}" alt="">
+            </div>
+            <div class="caption">
+              <a href="javascript:void(0)" class="fg-theme post-category">Design</a>
+              <a href="#" class="fg-theme post-title">5 basic tips for illustrating</a>
+              <span class="post-date"><span class="sr-only">Published on</span> May 22, 2018</span>
+              <span class="float-right">
+                <button class="btn btn-theme btn-sm btn-rounded" style="padding:3px;">4 likes</button>
+                <button class="btn btn-theme-outline btn-sm btn-rounded" style="padding:3px;">45 comments</button>
+              </span>            </div>
+          </div>
+        </div>
+        <div class="col-12 text-center py-3 wow fadeInUp">
+          <a href="{% url 'blogs' %}" class=" btn btn-theme btn-rounded">See All Post</a>
+        </div>
+      </div>
+    </div>
+  </div> <!-- End blog -->
+
+  <!-- Contact -->
+  <div class="vg-page page-contact" id="contact">
+    <div class="container-fluid">
+      <div class="text-center wow fadeInUp">
+        <div class="badge badge-subhead">Contact</div>
+      </div>
+      <h1 class="text-center fw-normal wow fadeInUp">Get in touch</h1>
+      <div class="row py-5">
+        <div class="col-lg-7 px-0 pr-lg-3 wow zoomIn">
+          <div class="vg-maps">
+            <div id="google-maps" style="width: 100%; height: 100%;"></div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <form class="vg-contact-form ActiveForm" method="post" style="padding:0 15px;" novalidate>
+            <div class="messager text-center wow fadeInUp"></div>
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="wrapper col-12 mt-3 wow fadeInUp">
+                <label for="id_name">Name <span class="text-danger">*</span></label>
+                {{contact_form.name}}
+                <span class="feedback"></span>
+              </div>
+              <div class="wrapper col-md-6 mt-3 wow fadeInUp">
+                <label for="id_email">Email <span class="text-danger">*</span></label>
+                {{contact_form.email}}
+                <span class="feedback"></span>
+              </div>
+              <div class="wrapper col-md-6 mt-3 wow fadeInUp">
+                <label for="id_subject">Subject <span class="text-danger">*</span></label>
+                {{contact_form.subject}}
+                <span class="feedback"></span>
+              </div>
+              <div class="wrapper col-12 mt-3 wow fadeInUp">
+                <label for="id_message">Message<span class="text-danger">*</span></label>
+                {{contact_form.message}}
+                <span class="feedback"></span>
+              </div>
+              <div class="col-12 text-center">
+                <button  class="btn btn-theme mt-3 wow fadeInUp ml-1 btn-rounded" id="contact_btn">
+                  <span class="fa fa-spinner fa-spin contact_spinner" style="display:none;"></span>
+                  <span class="contact_text">Send Message</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> <!-- End Contact -->
+{% endblock %}
