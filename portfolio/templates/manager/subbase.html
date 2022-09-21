@@ -295,17 +295,14 @@
                 <li class="d-md-none d-block">
                     <a target="_blank" href="https://wa.me/254798449624?text=greetings,how may i be of assistance &#128522 ?" ><i  class="fab fa-whatsapp"></i><span>Whatsapp Me</span></a>
                 </li>
-                <li class="d-md-none d-block">
-                    <a target="_blank" href="{% static 'manager/assets/docs/kevin_kibebe_cv.pdf' %}" title="Get my resume" download><i class="ti-download"></i><span>Get my resume</span></a>
-                </li>
                 <li class=""><a class="" href="{% url 'blogs' %}"><i class="zmdi zmdi-blogger"></i><span>Blogs</span></a></li>
-                <li class=""><a class="" href="{% url 'dashboard' %}#about"><i class="zmdi zmdi-menu"></i><span>About us</span></a></li>
+                <li><a href="javascript:void(0);" class="d-md-none d-block fg-theme js-right-sidebar" title="Setting"><i class="zmdi zmdi-settings"></i><span>Settings</span></a></li>
                 {% if not request.user.is_authenticated %}
                 <li class=""><a class="" href="{% url 'login' %}"><i class="zmdi zmdi-key"></i><span>Login</span></a></li>
                 {% endif %}
                 {% if request.user.is_authenticated %}
                 <li class="d-md-none d-block">
-                    <a href="{% url 'profile' username=data.username %}">
+                    <a href="{% url 'profile' username=request.user.username %}">
                         <i class="zmdi zmdi-edit"></i>
                         <span>Account profile</span>
                     </a>
